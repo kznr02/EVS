@@ -1,0 +1,8 @@
+{
+    "isMTFreg": 0,
+    "isUpsample": 0,
+    "isNormlization": 0,
+    "isOutputMTF": 1,
+    "MTFThreshold": 20,
+    "FREQThreshold": 8
+}
