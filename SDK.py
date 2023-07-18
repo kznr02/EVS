@@ -45,6 +45,8 @@ class sdk():
     def connect_cam(self, host: bytes, port: int):
         self.cam_handle = self.sdk.api_connect(host, port)
 
+    def disconnect_cam(self):
+        self.sdk.api_disconnect(self.cam_handle)
     def get_frame(self) -> Any:
         self.sdk.api_get_img.restype = POINTER(SRC_ALL)
 
@@ -68,7 +70,7 @@ class sdk():
         amp_data = np.array(src.contents.amp.data[:img_length]).reshape(480, 640).astype(np.uint16)
         # 16bit 2 8bit
         amp_data = self.conv16to8(amp_data)
-        self.save_img(amp_data, '0.png')
+        # self.save_img(amp_data, '0.png')
 
         return amp_data
 
@@ -88,7 +90,7 @@ class sdk():
             result = a.is_success(data_result_folder)
             print(result)
 
-    def draw_result(self, src: np.ndarray) -> Any:
+    def draw_result(self, src) -> Any:
         aa_image_path = os.path.join(self.res_path, '0.png')
         aa_image = cv2.imread(aa_image_path)
         aa_image_gray = cv2.cvtColor(aa_image, cv2.COLOR_BGR2GRAY)
